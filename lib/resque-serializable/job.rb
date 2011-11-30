@@ -9,8 +9,8 @@ module Resque
           # Alias Resque's Job.perform to Job.perform_after_deserializing
           alias_method :perform_after_deserializing, :perform
           
-          # Deserializes serialized arguments from YAML by looking for
-          # an argument of type Hash with a key :serialize and deserializing its value from YAML.
+          # Deserializes serialized arguments from YAML.
+          # Looks for an argument of type Hash with a key :serialize and deserializes its value.
           
           def perform
             args.collect! do |arg|
@@ -35,7 +35,10 @@ module Resque
             
             # Attempts to serialize job arguments before creating a new job, by looking for
             # an argument of type Hash with a key :serialize and serializing its value to YAML.
-            
+            #
+            # @param [Symbol] Current Resque job's queue name
+            # @param [Class] Resque job worker class
+            # @param [Array] anonymous arguments passed to the Resque worker class. A hash argument with key :serialize will be serialized to YAML
             def create(queue, klass, *args)
               args.collect! do |arg|
                 if arg.is_a?(Hash) && arg.key?(:serialize)
