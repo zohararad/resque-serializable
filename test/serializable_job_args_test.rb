@@ -40,4 +40,10 @@ class SerializableJobArgsTest < Test::Unit::TestCase
     assert $job_args['h'].is_a?(Hash), 'hash argument should be a hash'
     assert_equal 'value', $job_args['h']['key'], 'hash "key" property should equal "value"'
   end
+  
+  def test_resque_lint
+    assert_nothing_raised do
+      Resque::Plugin.lint(Resque::Serializable::Job)
+    end
+  end
 end
