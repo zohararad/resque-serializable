@@ -3,6 +3,8 @@
 This gem adds support for serializing and deserializing Resque job arguments. Although not considered the "pure" way by some philosophers, sometimes passing complex objects to a 
 background processor (Resque in this case), rather than just simple objects (String, Integer, Hash etc.) does make our lives a bit easier.
 
+**Resque-Serializable depends on Resque 1.9**
+
 ## Enter Resque-Serializable...
 
 Suppose you want run a lengthy background process using Resque and wish to pass on to your background worker an instance of some class you have in your code. Without Resque-Serializable
